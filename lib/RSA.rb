@@ -28,14 +28,14 @@ class RSA
    def new_key
      p = 4
      q = 4
-     while(!PRIME.prime?(p) || !PRIME.prime?(q) ) do
+     while(!Prime.prime?(p) || !Prime.prime?(q) ) do
        p = rand (10..99)
        q = rand (10..99)
      end
      @n = p * q
      lambda = (p-1).lcm((q-1))
 
-      while(!PRIME.prime?(@e)) do
+      while(!Prime.prime?(@e)) do
         @e = rand (0..lambda)
       end
 
@@ -54,25 +54,16 @@ class RSA
       message = "message"
       #@e=17
       #@n=3233
-      byte = []
-      ms = []
-      crypt = []
+      byte = Array.new
+      ms = Array.new
+      crypt = Array.new
 
       message.each_char do |c|
-        byte << c.ord
+        ms.push(c.ord)
       end
 
-      byte.each do |b|
-
-        if b.to_s.length < 3
-          ms << "0"+b.to_s
-        else
-          ms << b
-        end
-       end
-
        ms.each do |b|
-         crypt << c = b.to_i**@e % @n
+         crypt.push(c = b.to_i**@e % @n)
        end
 
      crypt
@@ -82,11 +73,10 @@ class RSA
    def decrypt message
 
     #  @n=3233
-    #  @d=14
-
+    #  @d=1
       m = ""
       message.each do |c|
-        m += (c**d % n).to_i.chr
+        m += (c.to_i**d % n).to_i.chr
       end
        m
       #decrypts the message passed. The message is of type string. Decrypts each symbol of this string Encrypts each symbol of this string by using its ASCII number representationand returns the decrypted message.
