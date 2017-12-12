@@ -16,4 +16,23 @@ describe RSA do
       expect(values.d).to eq 413
     end
   end
+
+  describe "new_key" do
+    it "creates new key" do
+      expect(values.new_key.length).to eq 3
+    end
+  end
+
+  describe "encrypt" do
+    it "encrypts the message" do
+      expect(values.encrypt("hello").length).to eq 7
+    end
+  end
+
+  describe "decrypt" do
+    it "decrypts the message" do
+      msg = values.encrypt("hello")
+      expect(values.decrypt(msg).length).to eq 7
+    end
+  end
 end
